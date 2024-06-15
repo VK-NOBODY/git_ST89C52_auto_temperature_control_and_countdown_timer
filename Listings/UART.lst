@@ -1,0 +1,79 @@
+C51 COMPILER V9.60.7.0   UART                                                              06/06/2024 20:44:02 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE UART
+OBJECT MODULE PLACED IN .\Objects\UART.obj
+COMPILER INVOKED BY: F:\RUANJIAN\Keil_v5\C51\BIN\C51.EXE UART.c LARGE OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(
+                    -.\Listings\UART.lst) TABS(2) OBJECT(.\Objects\UART.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "UART.h"
+   3          
+   4          /**
+   5            *@brief UART initialization function:transmit data
+   6            *@param No parameter
+   7            *@retval None
+   8            *@detail 
+   9            */
+  10          
+  11          void UART_Init(unsigned char c) //4800bps@11.0592MHz
+  12          {
+  13   1        SCON=0x50; //允许串口接收数据，模式1
+  14   1        PCON|=0x80; // 波特率加倍控制位设为1
+  15   1        TMOD=TMOD&0x0F;// 清零TMOD寄存器的高四位，以确保定时器1的工作方式设置正确
+  16   1        TMOD=TMOD|0x20;//
+  17   1        TF1=0;  //定时器1溢出标志位清零，确保定时器起始状态为未溢出。       
+  18   1        TR1=1;//启动定时器    
+  19   1        TH1=c;////设置定时初始值
+  20   1        TL1=c;//设置定时重载值
+  21   1        ES=1;// 允许串口中断，启用串口中断允许位。
+  22   1        EA=1;// 允许总中断，启用总中断允许位。
+  23   1      }
+  24          
+  25          
+  26          /**
+  27            *@brief 
+  28            *@param 
+  29            *@retval 
+  30            *@detail 
+  31            */
+  32          void UART_SendByte(unsigned char Byte)
+  33          {
+  34   1        SBUF=Byte;
+  35   1        while(TI==0);//
+  36   1        TI=0;
+  37   1      }
+  38          
+  39          /**
+  40            *@brief 
+  41            *@param
+  42            *@param
+  43            *@retval
+  44            *@detail 
+  45            */
+  46          
+  47          //void UART_Routine() interrupt 4
+  48          //{
+  49          //  if(RI==1)
+  50          //  {
+  51          //    RI=0;
+  52          //  }
+  53          //}
+
+C51 COMPILER V9.60.7.0   UART                                                              06/06/2024 20:44:02 PAGE 2   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     33    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,19 @@
+".\Objects\main.obj",
+".\Objects\UART.obj",
+".\Objects\XPT2046.obj",
+".\Objects\Timer0.obj",
+".\Objects\Delay.obj",
+".\Objects\LCD1602.obj",
+".\Objects\MatrixKey.obj",
+".\Objects\DS18B20.obj",
+".\Objects\OneWire.obj",
+".\Objects\Nixie.obj",
+".\Objects\ired.obj",
+".\Objects\public.obj",
+".\Objects\smg.obj",
+".\Objects\AT24C02.obj",
+".\Objects\Key.obj",
+".\Objects\I2C.obj",
+".\Objects\MatrixLED.obj" 
+TO ".\Objects\Project" 
+PRINT(".\Listings\Project.m51") RAMSIZE(256) 
